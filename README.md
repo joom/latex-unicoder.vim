@@ -1,8 +1,8 @@
 # latex-unicoder.vim
 
-A plugin to type Unicode chars in Vim, using their LaTeX names. A more extensive version of [rtdavis22/latex2unicode](https://github.com/rtdavis22/latex2unicode).
+A plugin to type Unicode chars in Vim, using their LaTeX names. This is a more extensive version of [rtdavis22/latex2unicode](https://github.com/rtdavis22/latex2unicode).
 
-I obtained the LaTeX-character map from the source code of [this web page](http://www.johndcook.com/unicode_latex.html), of course I had to change the Unicode codes to actual characters.
+I obtained the LaTeX-character map from [here](http://milde.users.sourceforge.net/LUCR/Math/).
 
 If you'd like to write Agda in Vim, you can use this as a substitute for [agda-input](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Docs.UnicodeInput), even though the character names are different.
 
