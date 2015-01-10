@@ -2465,7 +2465,7 @@ let s:symbols = {
   \  "\\mathtt{8}": "𝟾",
   \  "\\mathtt{9}": "𝟿" }
 
-function! LaTeX_Unicoder(insert)
+function! unicoder#start(insert)
   let code = input('Enter symbol code (add "\" if required) : ')
 
   if a:insert > 0
@@ -2484,6 +2484,3 @@ function! LaTeX_Unicoder(insert)
     normal! hl
   endif
 endfunction
-
-nmap <C-l> :call LaTeX_Unicoder(0)<CR>
-imap <C-l> <Esc>:call LaTeX_Unicoder(1)<CR>
