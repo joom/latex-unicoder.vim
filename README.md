@@ -12,7 +12,7 @@ I wanted the shortcut to be usable in insert mode too, so I used a modifier key 
 
 ## Demo
 
-![Demo](http://i.imgur.com/B6rZRt5.gif)
+![Demo](http://i.imgur.com/Ngp6GAE.gif)
 
 ## Installation
 
