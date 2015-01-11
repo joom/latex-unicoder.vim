@@ -1,5 +1,9 @@
 " LaTeX Unicoder.vim
 " http://github.com/joom/latex-unicoder.vim
 
-nmap <C-l> :call unicoder#start(0)<CR>
-imap <C-l> <Esc>:call unicoder#start(1)<CR>
+if !exists("g:unicoder_cancel_normal")
+  nmap <C-l> :call unicoder#start(0)<CR>
+endif
+if !exists("g:unicoder_cancel_insert")
+  imap <C-l> <Esc>:call unicoder#start(1)<CR>
+endif
