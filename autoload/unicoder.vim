@@ -2466,7 +2466,7 @@ let s:symbols = {
   \  "\\mathtt{9}"                : "𝟿" }
 
 function! unicoder#start(insert)
-  let code = input('Enter symbol code (add "\" if required) : ')
+  let code = input('Enter symbol code (add "\" if required) : ', '', 'customlist,unicoder#start_complete')
 
   if a:insert > 0
     let how = 'a'
@@ -2483,4 +2483,8 @@ function! unicoder#start(insert)
     startinsert!
     normal! hl
   endif
+endfunction
+
+function! unicoder#start_complete(a, c, p)
+    return filter(map(keys(s:symbols), "escape(v:val, '\')"), "v:val =~ '.*'.a:a.'.*'")
 endfunction
