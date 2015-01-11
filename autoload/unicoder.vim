@@ -2486,5 +2486,8 @@ function! unicoder#start(insert)
 endfunction
 
 function! unicoder#start_complete(a, c, p)
-    return filter(map(keys(s:symbols), "escape(v:val, '\')"), "v:val =~ '.*'.a:a.'.*'")
+    let s:a = escape(a:a, '\')
+    let s:b = "\\\\" . s:a
+    return filter(map(keys(s:symbols), "escape(v:val, '\')"),
+         \ "v:val =~ '^' . s:a .'.*' || v:val =~ '^' . s:b .'.*'")
 endfunction
