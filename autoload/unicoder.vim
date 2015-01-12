@@ -2491,3 +2491,13 @@ function! unicoder#start_complete(a, c, p)
     return filter(map(keys(s:symbols), "escape(v:val, '\')"),
          \ "v:val =~ '^' . s:a .'.*' || v:val =~ '^' . s:b .'.*'")
 endfunction
+
+function! unicoder#selection()
+  normal! gv"xy
+  if has_key(s:symbols, @x)
+    let @x = s:symbols[@x]
+    normal! gv"xp
+  else
+    echom 'Could not find "' . @x . '" in the dictionary!'
+  endif
+endfunction
