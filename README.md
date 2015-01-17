@@ -30,9 +30,9 @@ You also have the option to cancel the default mappings and create the mappings 
 let g:unicoder_cancel_normal = 1
 let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
-nmap <C-l> :call unicoder#start(0)<CR>
-imap <C-l> <Esc>:call unicoder#start(1)<CR>
-vmap <C-l> :<C-u>call unicoder#selection()<CR>
+nnoremap <C-l> :call unicoder#start(0)<CR>
+inoremap <C-l> <Esc>:call unicoder#start(1)<CR>
+vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
 ```
 
 ## Contributions
