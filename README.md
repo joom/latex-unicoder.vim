@@ -18,7 +18,7 @@ I wanted the shortcut to be usable in insert mode too, so I used a modifier key 
 
 If you don't want to type the entire thing, just type the first characters and press Tab, the plugin will complete it for you. If you're looking for something else that starts with the same characters, press Tab again. You can also omit the backslash in the beginning and let the autocomplete type it for you.
 
-If you are in visual mode, you can select a LaTeX code and press `C-l`. The plugin will convert the selected text, say, `\lambda`, to `𝜆` for you.
+If you are in visual mode, you can select a LaTeX code and press `C-l`. The plugin will convert the selected text, say, `\lambda`, to `λ` for you.
 
 ## Installation
 
@@ -37,7 +37,7 @@ vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
 
 ## Contributions
 
-There might be certain symbols, aliases and such that I miss. Pull requests are welcome. If you have other suggestions about the plugin usage, I'd like to hear them as well.
+There might be certain symbols and aliases that I miss. Pull requests are welcome. If you have other suggestions about the plugin usage, I'd like to hear them as well.
 
 ## License
 
