@@ -2505,28 +2505,22 @@ let s:symbols = {
   \ }
 
 
+function! unicoder#lookup_char(char)
+  if has_key(s:symbols, a:char)
+    return s:symbols[a:char]
+  else
+    return a:char
+  endif
+endfunction
+
+
 function! unicoder#transform_string(code)
   " handle the case when there are now latex commands at all
   if match(a:code, '\\') == -1
     return a:code
   endif
 
-  " TODO: handle a string like 'asdf \alpha asdf' or 'asdf-\alpha'
-
-  let res = ''
-  for expr in split(a:code, '\\')
-    let CMDREGEX = '\(\S\+\)\(\s*.*\)'
-    let item = '\' . substitute(expr, CMDREGEX, '\1', '')
-    let rem = substitute(expr, CMDREGEX, '\2', '')
-
-    if has_key(s:symbols, item)
-      let res = res . s:symbols[item] . rem
-    else
-      let res = res . item . rem
-    endif
-  endfor
-
-  return res
+  return substitute(a:code, '\(\\\S\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
 
 endfunction
 
