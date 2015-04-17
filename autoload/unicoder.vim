@@ -2504,6 +2504,27 @@ let s:symbols = {
   \  "\frac{3}{4}"                : "¾"
   \ }
 
+
+function! unicoder#lookup_char(char)
+  if has_key(s:symbols, a:char)
+    return s:symbols[a:char]
+  else
+    return a:char
+  endif
+endfunction
+
+
+function! unicoder#transform_string(code)
+  " handle the case when there are now latex commands at all
+  if match(a:code, '\\') == -1
+    return a:code
+  endif
+
+  return substitute(a:code, '\(\\\S\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
+
+endfunction
+
+
 function! unicoder#start(insert)
   let code = input('Enter symbol code (add "\" if required) : ', '', 'customlist,unicoder#start_complete')
 
@@ -2513,14 +2534,12 @@ function! unicoder#start(insert)
     let how = 'i'
   endif
 
-  if has_key(s:symbols, code)
-    execute 'normal! ' . how . s:symbols[code]
-  else
-    echom ' -- Could not find "' . code . '" in the dictionary!'
-  endif
-  if a:insert > 0
+  let s = unicoder#transform_string(code)
+  execute 'normal! ' . how . s
+
+  if a:insert <= 0
     startinsert!
-    normal! hl
+    normal! l
   endif
 endfunction
 
@@ -2532,11 +2551,8 @@ function! unicoder#start_complete(a, c, p)
 endfunction
 
 function! unicoder#selection()
+  " TODO: there is a problem with this when a whole line is selected
   normal! gv"xy
-  if has_key(s:symbols, @x)
-    let @x = s:symbols[@x]
-    normal! gv"xp
-  else
-    echom 'Could not find "' . @x . '" in the dictionary!'
-  endif
+  let @x = unicoder#transform_string(@x)
+  normal! gv"xp
 endfunction
