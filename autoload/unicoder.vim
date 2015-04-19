@@ -2516,7 +2516,7 @@ endfunction
 
 function! unicoder#transform_string(code)
 
-  return substitute(a:code, '\([\_\^\\]\S\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
+  return substitute(a:code, '\([\_\^\\][^\\\_\^ \t\n\r]\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
 
 endfunction
 
