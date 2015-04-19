@@ -2515,12 +2515,8 @@ endfunction
 
 
 function! unicoder#transform_string(code)
-  " handle the case when there are now latex commands at all
-  if match(a:code, '\\') == -1
-    return a:code
-  endif
 
-  return substitute(a:code, '\(\\\S\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
+  return substitute(a:code, '\([\_\^\\]\S\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
 
 endfunction
 
