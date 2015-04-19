@@ -18,7 +18,7 @@ I wanted the shortcut to be usable in insert mode too, so I used a modifier key 
 
 If you don't want to type the entire thing, just type the first characters and press Tab, the plugin will complete it for you. If you're looking for something else that starts with the same characters, press Tab again. You can also omit the backslash in the beginning and let the autocomplete type it for you.
 
-If you are in visual mode, you can select a LaTeX code and press `C-l`. The plugin will convert the selected text, say, `\lambda`, to `λ` for you.
+If you are in visual mode, you can select a LaTeX code and press `C-l`. The plugin will convert the selected text, say, `\lambda`, to `λ` for you. This can be used on multiple characters as well; for example, if you type `\forall \alpha \in A : \exists a \in A : a \cdot \alpha = 1`, select it and press `C-l`, your selection will be converted to `∀ α ∈ A : ∃ a ∈ A : a ⋅ α = 1`!
 
 ## Installation
 
