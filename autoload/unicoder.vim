@@ -2547,7 +2547,6 @@ function! unicoder#start_complete(a, c, p)
 endfunction
 
 function! unicoder#selection()
-  " TODO: there is a problem with this when a whole line is selected
   normal! gv"xy
   let @x = unicoder#transform_string(@x)
   normal! gv"xp
