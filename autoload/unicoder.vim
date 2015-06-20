@@ -2533,7 +2533,7 @@ function! unicoder#start(insert)
   let s = unicoder#transform_string(code)
   execute 'normal! ' . how . s
 
-  if a:insert <= 0
+  if a:insert > 0
     startinsert!
     normal! l
   endif
