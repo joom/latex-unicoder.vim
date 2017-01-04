@@ -2534,8 +2534,9 @@ function! unicoder#start(insert)
   execute 'normal! ' . how . s
 
   if a:insert > 0
-    startinsert!
-    normal! l
+    startinsert
+    let [_, lnum, col, _] = getpos(".")
+    call cursor(lnum, col+strlen(s))
   endif
 endfunction
 
