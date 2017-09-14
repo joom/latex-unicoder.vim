@@ -2504,22 +2504,90 @@ let s:symbols = {
   \  "\frac{3}{4}"                : "¾"
   \ }
 
+" Construct a trie from the s:symbols map to allow for efficient searches for
+" the longest matching prefix
+function! unicoder#build_trie()
+  let s:trie = {}
 
-function! unicoder#lookup_char(char)
-  if has_key(s:symbols, a:char)
-    return s:symbols[a:char]
-  else
-    return a:char
-  endif
+  " For each key-value pair
+  for [l:latex, l:sym] in items(s:symbols)
+    let l:level = s:trie
+    let l:parent = []
+
+    " For each char in the key
+    for l:char in split(l:latex, '\zs')
+      " Add char to the trie if not already there
+      if !has_key(l:level, l:char)
+        let l:level[l:char] = ["", {}]
+      endif
+
+      " Move down one level
+      let l:parent = l:level[l:char]
+      let l:level = l:level[l:char][1]
+    endfor
+
+    " At the end of the word, put the unicode symbol
+    if l:parent != []
+      let l:parent[0] = l:sym
+    endif
+  endfor
 endfunction
 
+" Search the trie for the longest matching prefix of the given string
+function! unicoder#match_longest(latex)
+  let l:level = s:trie
+  let l:val = ""
+  let l:len = 0
+
+  " For each char
+  for l:char in split(a:latex, '\zs')
+    " If char is in the trie
+    if has_key(l:level, l:char)
+      let l:len += 1
+
+      " Set the return value to the stored unicode character if one exists
+      if l:level[l:char][0] != ""
+        let l:val = l:level[l:char][0]
+      endif
+
+      " Move down a level
+      let l:level = l:level[l:char][1]
+    else
+      " No more matches
+      break
+    endif
+  endfor
+
+  " If no match, default to the first character
+  if l:len == 0
+    let l:len = 1
+    let l:val = a:latex[0]
+  endif
+
+  " Return the matching unicode character and how much of the given string was
+  " matched
+  return [l:val, l:len]
+endfunction
 
 function! unicoder#transform_string(code)
+  " Build the trie only once
+  if !exists('s:trie')
+    call unicoder#build_trie()
+  endif
 
-  return substitute(a:code, '\([\_\^\\][^\\\_\^ \t\n\r]\+\)', '\=unicoder#lookup_char(submatch(1))', 'g')
+  let l:unicode = ""
+  let l:code = a:code
 
+  " Continually find matching prefixes until the end of the string
+  while l:code != ""
+    let [l:match, l:len] = unicoder#match_longest(l:code)
+
+    let l:unicode .= l:match
+    let l:code = l:code[l:len:]
+  endwhile
+
+  return l:unicode
 endfunction
-
 
 function! unicoder#start(insert)
   let code = input('Enter symbol code (add "\" if required) : ', '', 'customlist,unicoder#start_complete')
