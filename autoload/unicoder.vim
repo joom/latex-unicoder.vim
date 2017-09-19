@@ -2536,37 +2536,35 @@ endfunction
 " Search the trie for the longest matching prefix of the given string
 function! unicoder#match_longest(latex)
   let l:level = s:trie
-  let l:val = ""
-  let l:len = 0
+
+  " If no match default to first character
+  let l:len = 1
+  let l:val = a:latex[0]
+  let l:matched_len = 1
 
   " For each char
   for l:char in split(a:latex, '\zs')
     " If char is in the trie
     if has_key(l:level, l:char)
-      let l:len += 1
-
       " Set the return value to the stored unicode character if one exists
       if l:level[l:char][0] != ""
         let l:val = l:level[l:char][0]
+        let l:matched_len = l:len
       endif
 
       " Move down a level
       let l:level = l:level[l:char][1]
+
+      let l:len += 1
     else
       " No more matches
       break
     endif
   endfor
 
-  " If no match, default to the first character
-  if l:len == 0
-    let l:len = 1
-    let l:val = a:latex[0]
-  endif
-
   " Return the matching unicode character and how much of the given string was
   " matched
-  return [l:val, l:len]
+  return [l:val, l:matched_len]
 endfunction
 
 function! unicoder#transform_string(code)
