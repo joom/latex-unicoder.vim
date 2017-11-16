@@ -2591,6 +2591,7 @@ function! unicoder#start(insert)
   let code = input('Enter symbol code (add "\" if required) : ', '', 'customlist,unicoder#start_complete')
 
   if a:insert > 0
+    let isend = col('.') == col('$') - 1
     let how = 'a'
   else
     let how = 'i'
@@ -2600,8 +2601,12 @@ function! unicoder#start(insert)
   execute 'normal! ' . how . s
 
   if a:insert > 0
-    startinsert!
-    normal! l
+    if isend
+      startinsert!
+    else
+      startinsert
+      normal! l
+    endif
   endif
 endfunction
 
