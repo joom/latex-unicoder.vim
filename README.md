@@ -8,7 +8,7 @@ If you'd like to write Agda in Vim, you can use this as a substitute for [agda-i
 
 ## Demo
 
-![Demo](http://i.imgur.com/Ngp6GAE.gif)
+[![asciicast](https://asciinema.org/a/b7M7fschMgZs6kxzmqMfWm8zA.png)](https://asciinema.org/a/b7M7fschMgZs6kxzmqMfWm8zA)
 
 ## Usage
 
