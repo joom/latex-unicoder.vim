@@ -1,7 +1,7 @@
 " LaTeX Unicoder.vim
 " http://github.com/joom/latex-unicoder.vim
 
-let s:symbols = {
+let s:presymbols = {
   \  "0"                          : "0",
   \  "1"                          : "1",
   \  "2"                          : "2",
@@ -2503,6 +2503,11 @@ let s:symbols = {
   \  "\frac{1}{4}"                : "¼",
   \  "\frac{3}{4}"                : "¾"
   \ }
+
+if !exists("g:unicode_map")
+  let g:unicode_map = {}
+endif
+let s:symbols = extend(s:presymbols, g:unicode_map)
 
 " Construct a trie from the s:symbols map to allow for efficient searches for
 " the longest matching prefix
