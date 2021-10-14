@@ -35,6 +35,14 @@ inoremap <C-l> <Esc>:call unicoder#start(1)<CR>
 vnoremap <C-l> :<C-u>call unicoder#selection()<CR>
 ```
 
+You can add additional custom symbols by defining `g:unicode_map` in your `.vimrc`, for instance:
+```vim
+let g:unicode_map = {
+  \ "\\box" : "□" ,
+  \ "\\sep" : "∗" ,
+  \ }
+```
+
 ## Contributions
 
 There might be certain symbols and aliases that I miss. Pull requests are welcome. If you have other suggestions about the plugin usage, I'd like to hear them as well.
