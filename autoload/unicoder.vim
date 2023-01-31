@@ -2657,8 +2657,12 @@ function! unicoder#start(insert)
   let code = input('Enter symbol code (add "\" if required) : ', '', 'customlist,unicoder#start_complete')
 
   if a:insert > 0
-    let isend = col('.') == col('$') - 1
-    let how = 'a'
+    let isend = col('.') == col('$')
+    if isend
+      let how = 'a'
+    else
+      let how = 'i'
+    endif
   else
     let how = 'i'
   endif
@@ -2674,6 +2678,7 @@ function! unicoder#start(insert)
       normal! l
     endif
   endif
+  return ""
 endfunction
 
 function! unicoder#start_complete(a, c, p)
